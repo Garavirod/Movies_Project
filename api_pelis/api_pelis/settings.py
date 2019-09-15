@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,7 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'api'
+    'api',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'rest_auth.registration',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -120,3 +127,28 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+"""
+ Lamentablemente por defecto las viewsets tienen permisos públicos, 
+ así que cualquiera podría manejar las películas. Para solucionarlo simplemente
+ añadiremos un permiso por defecto en el settings.py:
+"""
+REST_FRAMEWORK={
+    'DEFAULT_PERMISSON_CLASSES':[
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ],
+}
+
+SITE_ID = 1
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+
+#La authentication will be through tokens
+
+AUTHENTICATION_BACKENDS = (
+   "django.contrib.auth.backends.ModelBackend",
+   "allauth.account.auth_backends.AuthenticationBackend",
+)
