@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 from django.db import models
 
@@ -11,3 +11,8 @@ class Pelicula(models.Model):
 
   class Meta:
     ordering = ['titulo']
+
+
+class PeliculaFavorita(models.Model):
+    pelicula = models.ForeignKey(Pelicula, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
