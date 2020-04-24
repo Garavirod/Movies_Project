@@ -133,11 +133,12 @@ STATIC_URL = '/static/'
  añadiremos un permiso por defecto en el settings.py:
 """
 REST_FRAMEWORK={
-    'DEFAULT_PERMISSON_CLASSES':[
+    'DEFAULT_PERMISSON_CLASSES':[ #Declaramos los permiso de API rest framework
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ],
 }
 
+# CONFIGURACIONES PARA ALAUTH
 SITE_ID = 1
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
